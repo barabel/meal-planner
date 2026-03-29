@@ -13,8 +13,11 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "electron-squirrel-startup": "^1.0.1",
+    "i18next": "^26.0.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-i18next": "^17.0.1",
+    "react-router": "^7.13.2",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
@@ -32,6 +35,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "classix": "^2.2.11",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "electron": "^41.1.0",

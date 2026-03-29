@@ -1,5 +1,7 @@
 html {
   font-size: 16px;
+
+  --color-black-100: #000000;
 }
 
 body {
@@ -11,6 +13,10 @@ body {
   line-height: 100%;
   font-family: var(--halvarMittel-fonts), serif;
   font-weight: 400;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 main {
