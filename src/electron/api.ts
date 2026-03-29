@@ -1,8 +1,8 @@
-import { ipcMain } from "electron";
+import { ipcMain } from 'electron';
 
 ipcMain.handle(
-  "node-version",
+  'node-version',
   () => {
     return process.versions.node;
-  }
+  },
 );

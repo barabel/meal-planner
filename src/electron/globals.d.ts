@@ -1,1 +1,1 @@
-declare const backend: typeof import("./preload").backend;
+declare const backend: typeof import('./preload').backend;

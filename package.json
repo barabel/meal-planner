@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"cross-env DEV= tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron .\\\"\"",
     "preview": "vite build && tsc -p tsconfig-electron.json && cross-env PREVIEW= electron .",
-    "build": "vite build && tsc -p tsconfig-electron.json && electron-forge make"
+    "build": "vite build && tsc -p tsconfig-electron.json && electron-forge make",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
+    "lint-fix": "eslint \"**/*.{ts,tsx}\" --fix"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
@@ -23,6 +25,7 @@
     "@electron-forge/plugin-fuses": "^7.11.1",
     "@electron/fuses": "^1.8.0",
     "@eslint/js": "^9.39.4",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^24.12.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
