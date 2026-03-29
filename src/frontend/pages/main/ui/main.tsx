@@ -1,21 +1,25 @@
-import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router';
+import { Menu } from '@/widgets/menu';
+import { Week } from '@/widgets/week';
+import cx from 'classix';
 
 export const MainPage: FCClass = ({
   className,
 }) => {
-  const { t } = useTranslation();
-
   return (
     <div
-      className={className}
+      className={cx(
+        'flex gap-20 h-[100vh] p-16',
+        className,
+      )}
     >
-      <NavLink to="/recipe">
-        {t('recipes')}
-      </NavLink>
+      <Menu
+        className="w-15/100 h-full"
+      />
 
-      <div>
-        {t('test')}
+      <div
+        className="w-85/100"
+      >
+        <Week />
       </div>
     </div>
   );
