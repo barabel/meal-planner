@@ -3,28 +3,28 @@ import { Button } from '@/shared/ui/buttons/button';
 import cx from 'classix';
 import { useTranslation } from 'react-i18next';
 
-export const Menu: FCClass = ({
+export const Navbar: FCClass = ({
   className,
 }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'menu' });
+  const { t } = useTranslation('translation', { keyPrefix: 'navbar' });
 
   return (
     <div
       className={cx(
-        'p-16 border-1 border-black-100 rounded-2xl',
+        'flex gap-20 pt-16 px-16',
         className,
       )}
     >
-      <div
-        className="mb-16"
+      <Button
+        url={ROUTES_PATHS.MAIN}
       >
-        {t('title')}
-      </div>
+        {t('menu')}
+      </Button>
 
       <Button
         url={ROUTES_PATHS.RECIPES}
       >
-        {t('addRecipe')}
+        {t('recipe')}
       </Button>
     </div>
   );

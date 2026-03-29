@@ -1,18 +1,46 @@
+import { Button } from '@/shared/ui/buttons/button';
+import cx from 'classix';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router';
 
 export const RecipePage: FCClass = ({
   className,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translation', { keyPrefix: 'recipes' });
 
   return (
     <div
-      className={className}
+      className={cx(
+        'p-16',
+        className,
+      )}
     >
-      <NavLink to="/">
-        {t('main')}
-      </NavLink>
+      <form>
+        <div
+          className="flex gap-20"
+        >
+          <div>
+            название рецепта
+          </div>
+
+          <input
+            className="border-1 border-black-100"
+            type="text"
+            name="title"
+          />
+        </div>
+
+        <div
+          className="flex flex-col gap-20"
+        >
+        </div>
+
+        <Button
+          className="mt-20"
+          submit
+        >
+          {t('addRecipe')}
+        </Button>
+      </form>
     </div>
   );
 };

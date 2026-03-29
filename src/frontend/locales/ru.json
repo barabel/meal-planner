@@ -9,8 +9,11 @@
     "Sat": "Сб",
     "Sun": "Вс"
   },
-  "menu": {
-    "title": "Меню",
+  "navbar": {
+    "menu": "Меню",
+    "recipe": "Рецепты"
+  },
+  "recipes": {
     "addRecipe": "Добавить рецепт"
   }
 }
