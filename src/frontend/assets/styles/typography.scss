@@ -1,0 +1,15 @@
+%fontBreit {
+  font-family: var(--halvarBreit-fonts), serif;
+  font-weight: 800;
+}
+
+%fontMittel {
+  font-family: var(--halvarMittel-fonts), serif;
+  font-weight: 400;
+}
+
+@layer components {
+  .h {
+    display: block;
+  }
+}

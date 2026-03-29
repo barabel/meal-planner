@@ -1,0 +1,26 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  min-height: 100vh;
+  line-height: 100%;
+  font-family: var(--halvarMittel-fonts), serif;
+  font-weight: 400;
+}
+
+main {
+  min-height: 100vh;
+}
+
+button,
+form,
+input,
+textarea {
+  font-family: var(--halvarMittel-fonts), serif;
+  font-weight: 400;
+}
