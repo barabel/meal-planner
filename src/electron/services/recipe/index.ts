@@ -1,20 +1,9 @@
-import type { IRecipeRepository } from '../../repositories/recipe';
-import type { AddRecipeDto } from '../../repositories/recipe/dto/add-recipe';
+import type { IRecipeRepository } from '@-electron/domain/recipe';
 
 export class RecipeService {
-  recipeRepository: IRecipeRepository;
+  private readonly repository: IRecipeRepository;
 
-  constructor(
-    recipeRepository: IRecipeRepository,
-  ) {
-    this.recipeRepository = recipeRepository;
+  constructor(repository: IRecipeRepository) {
+    this.repository = repository;
   }
-
-  async add(dto: AddRecipeDto) {
-    this.recipeRepository.add(dto);
-  }
-
-  async remove(id: string) {
-    this.recipeRepository.remove(id);
-  }
-};
+}
