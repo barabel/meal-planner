@@ -4,7 +4,7 @@ import { HashRouter, Route, Routes } from 'react-router';
 import { LayoutIndex } from './layouts/index';
 import { ROUTES_PATHS } from '@/shared/config/routes';
 
-function App() {
+const App: FCClass = () => {
   return (
     <HashRouter>
       <Routes>
@@ -16,6 +16,6 @@ function App() {
       </Routes>
     </HashRouter>
   );
-}
+};
 
 export default App;

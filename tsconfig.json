@@ -1,14 +1,4 @@
 {
-  "compilerOptions": {
-    "paths": {
-      "@-electron/*": ["./src/electron/*"],
-      "@/*": ["./src/frontend/*"],
-      "~/*": ["./*"]
-    }
-  },
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }]
 }
