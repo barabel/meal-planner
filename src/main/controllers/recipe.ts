@@ -1,5 +1,5 @@
 import { RECIPES } from '@-electron/ipc-channels';
-import type { RecipeService } from '@-electron/services/recipe';
+import { RecipeService } from '@-electron/services/recipe';
 import { ipcMain, type IpcMainInvokeEvent } from 'electron';
 
 export class RecipeController {

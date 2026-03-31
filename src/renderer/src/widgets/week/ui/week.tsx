@@ -26,11 +26,12 @@ export const Week: FCClass = ({
       <div
         className="grid grid-cols-7 gap-20"
       >
-        {days.map((day) => {
+        {days.map((day, index) => {
           const { i18key } = day;
 
           return (
             <CardDay
+              key={index}
               className="w-full h-200"
               title={t(`${i18key}`)}
             />
