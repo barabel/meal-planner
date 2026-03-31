@@ -36,7 +36,9 @@ export const RecipePage: FCClass = ({
 
         <Button
           className="mt-20"
-          submit
+          onClick={() => {
+            window.api.recipes.add('hello');
+          }}
         >
           {t('addRecipe')}
         </Button>
