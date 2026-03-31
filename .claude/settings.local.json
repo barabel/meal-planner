@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "WebSearch",
-      "Bash(explorer \"C:\\\\Users\\\\user\\\\.claude\")",
-      "Bash(start explorer:*)"
-    ]
-  }
-}
