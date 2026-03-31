@@ -5,37 +5,41 @@
 ## Команды
 
 ```bash
-npm run dev        # запуск Vite dev-сервера + Electron (hot reload)
-npm run preview    # сборка фронтенда, компиляция electron, запуск с DevTools
-npm run build      # продакшн-сборка + electron-forge package
-npm run lint       # проверка ESLint
-npm run lint-fix   # автоисправление ESLint
+npm run dev          # electron-vite dev (hot reload)
+npm run start        # electron-vite preview (prod-сборка + запуск)
+npm run build        # typecheck + electron-vite build
+npm run build:win    # build + electron-builder --win
+npm run typecheck    # tsc для node и web таргетов
+npm run lint         # проверка ESLint
 ```
 
 ## Архитектура
 
-Electron-приложение с React-фронтендом. Два отдельных таргета компиляции:
+Electron-приложение с React-фронтендом на базе **electron-vite**. Три таргета:
 
-- **Frontend** — Vite собирает `src/frontend/` → `dist/index.html`
-- **Electron main process** — tsc компилирует `src/electron/` → `dist/main.js`
+- **main** — `src/main/` (Electron main process)
+- **preload** — `src/preload/` (contextBridge)
+- **renderer** — `src/renderer/src/` (React, собирается Vite)
 
-В dev-режиме Electron загружает `http://localhost:5173`; в prod — `dist/index.html`.
+В dev-режиме Electron загружает `ELECTRON_RENDERER_URL`; в prod — `out/renderer/index.html`.
 
 ### IPC-паттерн
 
-- `src/electron/api.ts` — регистрирует обработчики `ipcMain.handle`
-- `src/electron/preload.ts` — открывает обработчики рендереру через `contextBridge.exposeInMainWorld('backend', ...)`
-- `src/electron/globals.d.ts` — типы для `window.backend`
+- `src/main/controllers/` — регистрирует обработчики `ipcMain.handle`
+- `src/main/ipc-channels.ts` — константы имён каналов
+- `src/preload/index.ts` — открывает API рендереру через `contextBridge.exposeInMainWorld`
+- `src/preload/index.d.ts` — типы для `window.api` / `window.electron`
 
-Новый IPC-канал: добавить обработчик в `api.ts`, открыть в `preload.ts`, типизировать в `globals.d.ts`.
+Новый IPC-канал: добавить канал в `ipc-channels.ts`, обработчик в контроллер, открыть в `preload/index.ts`, типизировать в `preload/index.d.ts`.
 
 ### Слои Electron-бэкенда
 
 ```
-src/electron/
-  domain/     # Интерфейсы и чистые типы (напр. IRecipe, IRecipeRepository)
-  services/   # Бизнес-логика, зависит только от доменных интерфейсов
-  repository/ # Реализации (сейчас на основе electron-store)
+src/main/
+  domain/       # Интерфейсы и чистые типы (напр. IRecipe, IRecipeRepository)
+  services/     # Бизнес-логика, зависит только от доменных интерфейсов
+  repository/   # Реализации (сейчас на основе electron-store)
+  controllers/  # IPC-обработчики (регистрируют ipcMain.handle)
 ```
 
 Данные хранятся в `electron-store`. Репозитории реализуют доменные интерфейсы; сервисы получают репозитории через constructor injection.
@@ -43,7 +47,7 @@ src/electron/
 ### Структура фронтенда (Feature-Sliced Design)
 
 ```
-src/frontend/
+src/renderer/src/
   app/          # Точка входа, роутер, лэйауты
   pages/        # Компоненты страниц (уровень роутов)
   widgets/      # Составные UI-блоки (navbar, week)
@@ -62,9 +66,9 @@ src/frontend/
 
 ### Ключевые соглашения
 
-- алиас `@/` → `src/frontend/`; `@-electron/` → `src/electron/`; `~/` → корень репо
+- алиас `@/` → `src/renderer/src/`; `@-electron/` → `src/main/`; `~/` → корень репо
 - глобальный тип `FCClass<P>` — FC, всегда принимающий `className` и `children`
 - `classix` (`cx(...)`) для условного слияния классов
 - роутинг через `HashRouter` (требуется для file-протокола Electron)
-- i18n: только русский (`lng: 'ru'`), ключи в `src/frontend/locales/ru.json`
+- i18n: только русский (`lng: 'ru'`), ключи в `src/renderer/src/locales/ru.json`
 - стили: Tailwind v4 (CSS-first конфиг) + SCSS-модули в `assets/styles/`

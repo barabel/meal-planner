@@ -1,34 +1,13 @@
-# my-app
+# Meal Planner
 
-An Electron application with React and TypeScript
+Десктопное приложение для планирования питания на неделю. Pet-проект для изучения бэкенд-архитектуры (DDD, репозитории, сервисы). Долгосрочная цель — мигрировать с Electron на веб-приложение.
 
-## Recommended IDE Setup
+**Стек:** Electron · React 19 · TypeScript · Vite · Tailwind CSS v4 · electron-store
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-## Project Setup
-
-### Install
+## Команды
 
 ```bash
-$ npm install
-```
-
-### Development
-
-```bash
-$ npm run dev
-```
-
-### Build
-
-```bash
-# For windows
-$ npm run build:win
-
-# For macOS
-$ npm run build:mac
-
-# For Linux
-$ npm run build:linux
+npm run dev      # запуск в режиме разработки (hot reload)
+npm run start    # сборка + запуск как в проде
+npm run build    # продакшн-сборка (typecheck + electron-vite build)
 ```

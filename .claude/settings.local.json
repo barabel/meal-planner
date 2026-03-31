@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(explorer \"C:\\\\Users\\\\Barabel\\\\.claude\")",
-      "Bash(start \"\" \"C:\\\\Users\\\\Barabel\\\\.claude\")"
-    ]
-  }
-}

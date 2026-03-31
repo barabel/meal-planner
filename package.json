@@ -1,9 +1,9 @@
 {
-  "name": "my-app",
+  "name": "meal-planner",
   "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "description": "Desktop meal planner — weekly schedule, recipes, shopping list",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "barabel",
   "homepage": "https://electron-vite.org",
   "scripts": {
     "lint": "eslint --cache .",
