@@ -14,6 +14,7 @@ export default defineConfig({
     alias: {
       '~': path.resolve(process.cwd()),
       '@': path.resolve(process.cwd(), 'src', 'frontend'),
+      '@-electron': path.resolve(process.cwd(), 'src', 'electron'),
     },
   },
 });

@@ -1,5 +1,6 @@
 import Store from 'electron-store';
-import type { IRecipe, IRecipeRepository } from '@-electron/domain/recipe';
+import type { ICreateRecipeDto, IRecipe, IRecipeRepository } from '@-electron/domain/recipe';
+import crypto from 'node:crypto';
 import type { StoreSchema } from './types';
 
 export class RecipeStoreRepository implements IRecipeRepository {
@@ -13,13 +14,20 @@ export class RecipeStoreRepository implements IRecipeRepository {
     return this.store.get('recipes');
   };
 
-  add = (recipe: IRecipe): undefined => {
+  add = (dto: ICreateRecipeDto): IRecipe => {
+    const recipe = {
+      id: crypto.randomUUID(),
+      ...dto,
+    };
+
     const recipes = this.getAll();
 
     this.store.set('recipes', [...recipes, recipe]);
+
+    return recipe;
   };
 
-  remove = (id: string): undefined => {
+  remove = (id: string): void => {
     const recipes = this.getAll();
 
     this.store.set('recipes', recipes.filter(recipe => recipe.id !== id));

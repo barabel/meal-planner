@@ -3,7 +3,12 @@ export interface IRecipe {
   title: string;
 }
 
+export interface ICreateRecipeDto {
+  title: string;
+}
+
 export interface IRecipeRepository {
-  add(recipe: IRecipe): undefined;
-  remove(id: string): undefined;
+  getAll(): IRecipe[];
+  add(dto: ICreateRecipeDto): IRecipe;
+  remove(id: string): void;
 }

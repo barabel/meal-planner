@@ -1,6 +1,10 @@
 import { app, BrowserWindow } from 'electron';
 import { join } from 'path';
-
+import Store from 'electron-store';
+import { RecipeStoreRepository } from './repository/recipe/electron-store/recipe-store';
+import type { StoreSchema } from './repository/recipe/electron-store/types';
+import { RecipeService } from './services/recipe';
+import { RecipeController } from './controllers/recipe';
 import './api';
 
 const isDev = process.env.DEV != undefined;
@@ -30,6 +34,15 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  const store = new Store<StoreSchema>({
+    name: 'recipes',
+    defaults: { recipes: [] },
+  });
+
+  const recipeRepository = new RecipeStoreRepository(store);
+  const recipeSerive = new RecipeService(recipeRepository);
+  new RecipeController(recipeSerive);
+
   createWindow();
 
   app.on('activate', () => {

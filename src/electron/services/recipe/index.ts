@@ -1,4 +1,4 @@
-import type { IRecipeRepository } from '@-electron/domain/recipe';
+import type { IRecipe, IRecipeRepository } from '@-electron/domain/recipe';
 
 export class RecipeService {
   private readonly repository: IRecipeRepository;
@@ -6,4 +6,16 @@ export class RecipeService {
   constructor(repository: IRecipeRepository) {
     this.repository = repository;
   }
+
+  getAll = (): IRecipe[] => {
+    return this.repository.getAll();
+  };
+
+  add = (title: string): IRecipe => {
+    return this.repository.add({ title });
+  };
+
+  remove = (id: string): void => {
+    this.repository.remove(id);
+  };
 }
