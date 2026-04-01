@@ -11,6 +11,7 @@ npm run build        # typecheck + electron-vite build
 npm run build:win    # build + electron-builder --win
 npm run typecheck    # tsc для node и web таргетов
 npm run lint         # проверка ESLint
+npm run lintFix      # ESLint с автоисправлением
 ```
 
 ## Архитектура
@@ -38,11 +39,11 @@ Electron-приложение с React-фронтендом на базе **elec
 src/main/
   domain/       # Интерфейсы и чистые типы (напр. IRecipe, IRecipeRepository)
   services/     # Бизнес-логика, зависит только от доменных интерфейсов
-  repository/   # Реализации (сейчас на основе electron-store)
+  repository/   # Реализации (сейчас на основе electron-conf)
   controllers/  # IPC-обработчики (регистрируют ipcMain.handle)
 ```
 
-Данные хранятся в `electron-store`. Репозитории реализуют доменные интерфейсы; сервисы получают репозитории через constructor injection.
+Данные хранятся в `electron-conf` (пакет `electron-conf`, `Conf` из `electron-conf/main`). Репозитории реализуют доменные интерфейсы; сервисы получают репозитории через constructor injection.
 
 ### Структура фронтенда (Feature-Sliced Design)
 
@@ -72,3 +73,6 @@ src/renderer/src/
 - роутинг через `HashRouter` (требуется для file-протокола Electron)
 - i18n: только русский (`lng: 'ru'`), ключи в `src/renderer/src/locales/ru.json`
 - стили: Tailwind v4 (CSS-first конфиг) + SCSS-модули в `assets/styles/`
+
+## Планы
+В конце каждого плана предоставь мне список не решенных вопросов, если есть. Предоставь эти вопросы максимально кратко, грамматикой можно жертвовать ради лаконичности

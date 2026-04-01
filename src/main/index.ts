@@ -1,10 +1,10 @@
 import { app, shell, BrowserWindow } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
-import Store from 'electron-store';
+import { Conf } from 'electron-conf/main';
 import icon from '../../resources/icon.png?asset';
-import { RecipeStoreRepository } from './repository/recipe/electron-store/recipe-store';
-import { StoreSchema } from './repository/recipe/electron-store/types';
+import { RecipeStoreRepository } from './repository/recipe/conf/recipe-store';
+import { StoreSchema } from './repository/recipe/conf/types';
 import { RecipeService } from './services/recipe';
 import { RecipeController } from './controllers/recipe';
 
@@ -54,7 +54,7 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window);
   });
 
-  const store = new Store<StoreSchema>({
+  const store = new Conf<StoreSchema>({
     name: 'recipes',
     defaults: { recipes: [] },
   });
