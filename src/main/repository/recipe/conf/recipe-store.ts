@@ -1,12 +1,12 @@
-import Store from 'electron-store';
+import { Conf } from 'electron-conf/main';
 import type { ICreateRecipeDto, IRecipe, IRecipeRepository } from '@-electron/domain/recipe';
 import crypto from 'node:crypto';
 import type { StoreSchema } from './types';
 
 export class RecipeStoreRepository implements IRecipeRepository {
-  private readonly store: Store<StoreSchema>;
+  private readonly store: Conf<StoreSchema>;
 
-  constructor(store: Store<StoreSchema>) {
+  constructor(store: Conf<StoreSchema>) {
     this.store = store;
   }
 
