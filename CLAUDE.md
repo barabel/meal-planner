@@ -74,5 +74,9 @@ src/renderer/src/
 - i18n: только русский (`lng: 'ru'`), ключи в `src/renderer/src/locales/ru.json`
 - стили: Tailwind v4 (CSS-first конфиг) + SCSS-модули в `assets/styles/`
 
+## Компоненты
+
+COMPONENT_BASE_PATH=src/renderer/src/
+
 ## Планы
 В конце каждого плана предоставь мне список не решенных вопросов, если есть. Предоставь эти вопросы максимально кратко, грамматикой можно жертвовать ради лаконичности

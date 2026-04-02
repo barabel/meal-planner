@@ -1,5 +1,10 @@
 export type TCreateRecipeIngredient = {
   title: string;
-  onChange: (value: string) => void;
-  onDelete: () => void;
+  amount: string;
+  unit: string;
+};
+
+export type TCreateRecipeIngredientComp = TCreateRecipeIngredient & {
+  onChange?: (newValues: Partial<TCreateRecipeIngredient>) => void;
+  onDelete?: () => void;
 };

@@ -3,18 +3,19 @@ import { Button } from '@/shared/ui/buttons/button';
 import { Input } from '@/shared/ui/input';
 import { useTranslation } from 'react-i18next';
 import { CreateRecipeIngredient } from './ingredient';
+import { TCreateRecipeIngredient } from '../types';
 
 export const CreateRecipe: FCClass = ({
   className,
 }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'recipes' });
 
-  const [ingredients, setIngredients] = useState<{ title: string }[]>([]);
+  const [ingredients, setIngredients] = useState<TCreateRecipeIngredient[]>([]);
 
-  const addIngredient = () => setIngredients(prev => [...prev, { title: '' }]);
+  const addIngredient = () => setIngredients(prev => [...prev, { title: '', amount: '', unit: 'g' }]);
 
-  const updateIngredient = (index: number, value: string) =>
-    setIngredients(prev => prev.map((item, i) => i === index ? { title: value } : item));
+  const updateIngredient = (index: number, newValues: Partial<TCreateRecipeIngredient>) =>
+    setIngredients(prev => prev.map((ingredient, i) => i === index ? { ...ingredient, ...newValues } : ingredient));
 
   const removeIngredient = (index: number) =>
     setIngredients(prev => prev.filter((_, i) => i !== index));
@@ -38,14 +39,20 @@ export const CreateRecipe: FCClass = ({
           />
         </div>
 
-        {ingredients.map((ingredient, index) => (
-          <CreateRecipeIngredient
-            key={index}
-            title={ingredient.title}
-            onChange={value => updateIngredient(index, value)}
-            onDelete={() => removeIngredient(index)}
-          />
-        ))}
+        {ingredients.map((ingredient, index) => {
+          const { title, amount, unit } = ingredient;
+
+          return (
+            <CreateRecipeIngredient
+              key={index}
+              title={title}
+              amount={amount}
+              unit={unit}
+              onChange={newValues => updateIngredient(index, newValues)}
+              onDelete={() => removeIngredient(index)}
+            />
+          );
+        })}
 
         <Button onClick={addIngredient}>
           {t('addIngredient')}

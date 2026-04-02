@@ -3,6 +3,7 @@ import { TInput } from '../types';
 
 export const Input: FCClass<TInput> = ({
   className,
+  type = 'text',
   name,
   value,
   onChange,
@@ -13,7 +14,7 @@ export const Input: FCClass<TInput> = ({
         'border-1 border-black-100',
         className,
       )}
-      type="text"
+      type={type}
       name={name}
       value={value}
       onChange={onChange}
