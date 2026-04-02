@@ -1,4 +1,5 @@
 export type TCreateRecipeIngredient = {
+  placeholderTitle?: string;
   title: string;
   amount: string;
   unit: string;

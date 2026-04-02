@@ -5,9 +5,11 @@ import { Button } from '@/shared/ui/buttons/button';
 import cx from 'classix';
 import { Amount, TAmount } from '@/features/amount';
 import { ChangeEvent } from 'react';
+import { InputWrapper } from '@/shared/ui/input-wrapper';
 
 export const CreateRecipeIngredient: FCClass<TCreateRecipeIngredientComp> = ({
   className,
+  placeholderTitle,
   title,
   amount,
   unit,
@@ -27,14 +29,19 @@ export const CreateRecipeIngredient: FCClass<TCreateRecipeIngredientComp> = ({
   return (
     <div
       className={cx(
-        'flex gap-20',
+        'flex items-end gap-20',
         className,
       )}
     >
-      <Input
-        value={title}
-        onChange={handleInputChange}
-      />
+      <InputWrapper
+        label={t('ingredientWrapper')}
+      >
+        <Input
+          placeholder={placeholderTitle}
+          value={title}
+          onChange={handleInputChange}
+        />
+      </InputWrapper>
 
       <Amount
         amount={amount}

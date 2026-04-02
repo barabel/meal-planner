@@ -22,7 +22,7 @@
     "build:mac": "electron-vite build && electron-builder --mac",
     "build:linux": "electron-vite build && electron-builder --linux",
     "prepare": "husky",
-    "testByHusky": "vitest run && npm run typecheck && electron-vite build"
+    "testByHusky": "vitest run && npm run lint && npm run typecheck && electron-vite build"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",

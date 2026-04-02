@@ -6,18 +6,20 @@ export const Input: FCClass<TInput> = ({
   type = 'text',
   name,
   value,
+  placeholder,
   onChange,
 }) => {
   return (
     <input
       className={cx(
-        'border-1 border-black-100',
+        'flex items-center h-32 px-10 border-1 border-black-100',
         className,
       )}
       type={type}
       name={name}
       value={value}
       onChange={onChange}
+      placeholder={placeholder}
     />
   );
 };

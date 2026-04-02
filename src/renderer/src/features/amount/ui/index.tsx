@@ -3,6 +3,8 @@ import { TAmount } from '../types';
 import { Select } from '@/shared/ui/select';
 import { useUnitsStore } from '../model/store';
 import cx from 'classix';
+import { InputWrapper } from '@/shared/ui/input-wrapper';
+import { useTranslation } from 'react-i18next';
 
 export const Amount: FCClass<TAmount> = ({
   className,
@@ -10,22 +12,33 @@ export const Amount: FCClass<TAmount> = ({
   unit,
   onChange,
 }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'amount' });
+
   const units = useUnitsStore(store => store.units);
 
   return (
     <div
-      className={cx('flex gap-8', className)}
+      className={cx('flex gap-20', className)}
     >
-      <Input
-        value={amount}
-        onChange={event => onChange({ amount: event.target.value, unit })}
-      />
+      <InputWrapper
+        label={t('value')}
+      >
+        <Input
+          value={amount}
+          onChange={event => onChange({ amount: event.target.value, unit })}
+          placeholder="0"
+        />
+      </InputWrapper>
 
-      <Select
-        options={units}
-        value={unit}
-        onChange={event => onChange({ amount: amount, unit: event.target.value })}
-      />
+      <InputWrapper
+        label={t('unit')}
+      >
+        <Select
+          options={units}
+          value={unit}
+          onChange={event => onChange({ amount: amount, unit: event.target.value })}
+        />
+      </InputWrapper>
     </div>
   );
 };
