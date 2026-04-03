@@ -55,8 +55,8 @@ src/renderer/src/
   pages/        # Компоненты страниц (main, recipe)
   widgets/      # Составные UI-блоки (navbar, week, create-recipe)
   features/     # Фичи (amount — ввод количества+единицы)
-  entities/     # Бизнес-сущности (cards/day)
-  shared/       # Конфиг (роуты), helpers/arrays, UI (button, input, input-wrapper, select)
+  entities/     # Бизнес-сущности (cards/day, recipe — useRecipesStore)
+  shared/       # Конфиг (роуты), helpers/arrays, UI (button, input, input-wrapper, select), types/recipe
   assets/       # SCSS + Tailwind-тема
   locales/      # i18n JSON (пока только ru)
 ```
@@ -68,7 +68,8 @@ src/renderer/src/
 - Electron 39, electron-vite 5, Vite 7
 - React 19, React Router 7, TypeScript 5.9
 - Tailwind CSS 4 (CSS-first), SCSS (sass-embedded)
-- Zustand 5 — стейт (features/amount)
+- Zustand 5 — стейт (features/amount, entities/recipe)
+- react-hook-form — формы (widgets/create-recipe)
 - i18next 26 + react-i18next, только `ru`
 - electron-conf 1.3 — персистентность
 - Vitest 4 + Testing Library — тесты
@@ -80,8 +81,12 @@ IPC-цепочка полностью готова:
 `RecipeStoreRepository` (electron-conf) → `RecipeService` → `RecipeController` → preload → `window.api.recipes`
 
 - каналы: `recipes:getAll`, `recipes:add`, `recipes:remove`
-- `IRecipe { id: string, title: string }`
-- Фронтенд (create-recipe) пока **не подключён** к IPC — кнопка "добавить рецепт" без обработчика
+- Типы в `src/shared/types/recipe.ts` (shared между main и renderer):
+  - `IRecipe { id: string, title: string, ingredients: IRecipeIngredient[] }`
+  - `IRecipeIngredient { title: string, amount: string, unit: string }`
+  - `ICreateRecipeDto { title: string, ingredients: IRecipeIngredient[] }`
+- `entities/recipe` — Zustand-стор `useRecipesStore`: `fetchAll`, `addRecipe`, `removeRecipe`
+- Фронтенд (create-recipe) **подключён** к IPC через `useRecipesStore.addRecipe`; форма на `react-hook-form` + `useFieldArray`
 
 ## Контекст разработчика
 
