@@ -12,7 +12,7 @@ export const Input: FCClass<TInput> = ({
   return (
     <input
       className={cx(
-        'flex items-center h-32 px-10 border-1 border-black-100',
+        'flex items-center h-32 px-10 border-1 border-black-100 [.error-input_>_&]:border-red-500',
         className,
       )}
       type={type}

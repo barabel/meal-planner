@@ -11,8 +11,9 @@ export const Amount: FCClass<TAmount> = ({
   amount,
   unit,
   onChange,
+  errors,
 }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'amount' });
+  const { t } = useTranslation();
 
   const units = useUnitsStore(store => store.units);
 
@@ -21,7 +22,8 @@ export const Amount: FCClass<TAmount> = ({
       className={cx('flex gap-20', className)}
     >
       <InputWrapper
-        label={t('value')}
+        label={t('amount.value')}
+        error={errors?.amount}
       >
         <Input
           value={amount}
@@ -31,7 +33,8 @@ export const Amount: FCClass<TAmount> = ({
       </InputWrapper>
 
       <InputWrapper
-        label={t('unit')}
+        label={t('amount.unit')}
+        error={errors?.unit}
       >
         <Select
           options={units}

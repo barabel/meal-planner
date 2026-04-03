@@ -24,5 +24,9 @@
   "amount": {
     "value": "количество",
     "unit": "ед. изм."
+  },
+  "validation": {
+    "required": "Необходимое поле",
+    "ingredientsNeed": "Необходимы ингредиенты"
   }
 }

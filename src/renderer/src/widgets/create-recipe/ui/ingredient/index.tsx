@@ -1,30 +1,38 @@
 import { Input } from '@/shared/ui/input';
-import { TCreateRecipeIngredientComp } from '../../types';
+import { TCreateRecipeIngredientComp, TCreateRecipeForm } from '../../types';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui/buttons/button';
 import cx from 'classix';
-import { Amount, TAmount } from '@/features/amount';
-import { ChangeEvent } from 'react';
+import { Amount } from '@/features/amount';
 import { InputWrapper } from '@/shared/ui/input-wrapper';
+import { useController, useFormContext } from 'react-hook-form';
 
 export const CreateRecipeIngredient: FCClass<TCreateRecipeIngredientComp> = ({
   className,
+  index,
   placeholderTitle,
-  title,
-  amount,
-  unit,
-  onChange,
   onDelete,
 }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'recipes' });
+  const { t } = useTranslation();
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange?.({ title: event.target.value });
-  };
+  const { control } = useFormContext<TCreateRecipeForm>();
 
-  const handleAmountChange: TAmount['onChange'] = (params) => {
-    onChange?.(params);
-  };
+  const { field: titleField, fieldState: { error: titleError } } = useController({
+    control,
+    name: `ingredients.${index}.title`,
+    rules: { required: t('validation.required') },
+  });
+
+  const { field: amountField, fieldState: { error: amountError } } = useController({
+    control,
+    name: `ingredients.${index}.amount`,
+    rules: { required: t('validation.required') },
+  });
+
+  const { field: unitField, fieldState: { error: unitError } } = useController({
+    control,
+    name: `ingredients.${index}.unit`,
+  });
 
   return (
     <div
@@ -34,23 +42,28 @@ export const CreateRecipeIngredient: FCClass<TCreateRecipeIngredientComp> = ({
       )}
     >
       <InputWrapper
-        label={t('ingredientWrapper')}
+        label={t('recipes.ingredientWrapper')}
+        error={titleError?.message}
       >
         <Input
           placeholder={placeholderTitle}
-          value={title}
-          onChange={handleInputChange}
+          value={titleField.value}
+          onChange={event => titleField.onChange(event.target.value)}
         />
       </InputWrapper>
 
       <Amount
-        amount={amount}
-        unit={unit}
-        onChange={handleAmountChange}
+        amount={amountField.value}
+        unit={unitField.value}
+        onChange={({ amount, unit }) => {
+          amountField.onChange(amount);
+          unitField.onChange(unit);
+        }}
+        errors={{ amount: amountError?.message, unit: unitError?.message }}
       />
 
       <Button onClick={onDelete}>
-        {t('deleteIngredient')}
+        {t('recipes.deleteIngredient')}
       </Button>
     </div>
   );
