@@ -1,19 +1,6 @@
-interface IRecipeIngredient {
-  title: string;
-  amount: string;
-  unit: string;
-}
+export type { IRecipe, ICreateRecipeDto, IRecipeIngredient } from '@shared/types/recipe';
 
-export interface IRecipe {
-  id: string;
-  title: string;
-  ingredients: IRecipeIngredient[];
-}
-
-export interface ICreateRecipeDto {
-  title: string;
-  ingredients: IRecipeIngredient[];
-}
+import type { IRecipe, ICreateRecipeDto } from '@shared/types/recipe';
 
 export interface IRecipeRepository {
   getAll(): IRecipe[];

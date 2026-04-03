@@ -6,6 +6,13 @@ vi.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key: string) => key }),
 }));
 
+const addRecipe = vi.fn().mockResolvedValue(undefined);
+
+vi.mock('@/entities/recipe', () => ({
+  useRecipesStore: (selector: (s: { addRecipe: typeof addRecipe }) => unknown) =>
+    selector({ addRecipe }),
+}));
+
 vi.mock('./ingredient/create-recipe-ingredient', () => ({
   CreateRecipeIngredient: ({ index, onDelete }: { index: number; onDelete: () => void }) => (
     <div data-testid={`ingredient-${index}`}>
@@ -66,5 +73,26 @@ describe('CreateRecipe', () => {
     await userEvent.click(screen.getByText('recipes.addIngredient'));
     await userEvent.click(screen.getByText('recipes.addRecipe'));
     expect(screen.queryByText('validation.ingredientsNeed')).not.toBeInTheDocument();
+  });
+
+  it('валидный сабмит → addRecipe вызывается с title и ingredients', async () => {
+    addRecipe.mockClear();
+    render(<CreateRecipe />);
+    await userEvent.type(screen.getByRole('textbox'), 'Борщ');
+    await userEvent.click(screen.getByText('recipes.addIngredient'));
+    await userEvent.click(screen.getByText('recipes.addRecipe'));
+    expect(addRecipe).toHaveBeenCalledOnce();
+    expect(addRecipe).toHaveBeenCalledWith(
+      expect.objectContaining({ title: 'Борщ', ingredients: expect.arrayContaining([expect.any(Object)]) }),
+    );
+  });
+
+  it('после успешного сабмита → поле названия сбрасывается', async () => {
+    addRecipe.mockClear();
+    render(<CreateRecipe />);
+    await userEvent.type(screen.getByRole('textbox'), 'Борщ');
+    await userEvent.click(screen.getByText('recipes.addIngredient'));
+    await userEvent.click(screen.getByText('recipes.addRecipe'));
+    expect(screen.getByRole('textbox')).toHaveValue('');
   });
 });

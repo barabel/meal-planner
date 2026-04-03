@@ -6,6 +6,7 @@ import { TCreateRecipeForm } from '../types';
 import { InputWrapper } from '@/shared/ui/input-wrapper';
 import { Controller, FormProvider, SubmitHandler, useForm, useFieldArray } from 'react-hook-form';
 import { defaultFormValues, defaultIngredientFormValues } from '../const';
+import { useRecipesStore } from '@/entities/recipe';
 
 export const CreateRecipe: FCClass = ({
   className,
@@ -17,14 +18,22 @@ export const CreateRecipe: FCClass = ({
     defaultValues: defaultFormValues,
   });
 
-  const { control, handleSubmit, setError, formState: { errors } } = methods;
+  const {
+    control,
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors },
+  } = methods;
 
   const { fields, remove, append } = useFieldArray({
     control,
     name: 'ingredients',
   });
 
-  const onSubmit: SubmitHandler<TCreateRecipeForm> = (data) => {
+  const addRecipe = useRecipesStore(state => state.addRecipe);
+
+  const onSubmit: SubmitHandler<TCreateRecipeForm> = async (data) => {
     const { ingredients } = data;
 
     if (ingredients.length === 0) {
@@ -32,6 +41,10 @@ export const CreateRecipe: FCClass = ({
 
       return;
     }
+
+    await addRecipe(data);
+
+    reset();
   };
 
   return (

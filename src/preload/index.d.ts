@@ -1,5 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload';
-import { ICreateRecipeDto, IRecipe } from 'src/main/domain/recipe/index';
+import { ICreateRecipeDto, IRecipe } from '@shared/types/recipe';
 
 declare global {
   interface Window {

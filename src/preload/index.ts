@@ -1,12 +1,13 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
 import { RECIPES } from '../main/ipc-channels';
+import type { ICreateRecipeDto } from '../main/domain/recipe';
 
 // Кастомное API для рендерера
 const api = {
   recipes: {
     getAll: () => ipcRenderer.invoke(RECIPES.GET_ALL),
-    add: (title: string) => ipcRenderer.invoke(RECIPES.ADD, title),
+    add: (dto: ICreateRecipeDto) => ipcRenderer.invoke(RECIPES.ADD, dto),
     remove: (id: string) => ipcRenderer.invoke(RECIPES.REMOVE, id),
   },
 };

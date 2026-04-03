@@ -9,15 +9,23 @@ export default defineConfig({
       alias: {
         '@': resolve('src/renderer/src'),
         '@-electron': resolve('src/main'),
+        '@shared': resolve('src/shared'),
       },
     },
   },
-  preload: {},
+  preload: {
+    resolve: {
+      alias: {
+        '@shared': resolve('src/shared'),
+      },
+    },
+  },
   renderer: {
     resolve: {
       alias: {
         '@': resolve('src/renderer/src'),
         '@-electron': resolve('src/main'),
+        '@shared': resolve('src/shared'),
       },
     },
     plugins: [
