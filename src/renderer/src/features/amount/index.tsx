@@ -1,2 +1,2 @@
-export { Amount } from './ui';
+export { Amount } from './ui/amount';
 export type { TAmount } from './types';

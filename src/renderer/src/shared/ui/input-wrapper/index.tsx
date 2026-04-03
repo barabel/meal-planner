@@ -1,1 +1,1 @@
-export { InputWrapper } from './ui';
+export { InputWrapper } from './ui/input-wrapper';

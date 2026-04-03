@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { InputWrapper } from './index';
+import { InputWrapper } from './input-wrapper';
 
 describe('InputWrapper', () => {
   it('рендерит children', () => {

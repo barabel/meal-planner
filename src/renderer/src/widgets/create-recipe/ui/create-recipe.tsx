@@ -1,7 +1,7 @@
 import { Button } from '@/shared/ui/buttons/button';
 import { Input } from '@/shared/ui/input';
 import { useTranslation } from 'react-i18next';
-import { CreateRecipeIngredient } from './ingredient';
+import { CreateRecipeIngredient } from './ingredient/create-recipe-ingredient';
 import { TCreateRecipeForm } from '../types';
 import { InputWrapper } from '@/shared/ui/input-wrapper';
 import { Controller, FormProvider, SubmitHandler, useForm, useFieldArray } from 'react-hook-form';
