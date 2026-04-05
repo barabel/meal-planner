@@ -17,6 +17,16 @@
     "addRecipe": "Добавить рецепт",
     "recipeName": "Название рецепта",
     "addIngredient": "Добавить ингредиент",
-    "deleteIngredient": "Убрать ингредиент"
+    "deleteIngredient": "Убрать ингредиент",
+    "ingredientWrapper": "Название ингредиента",
+    "ingredientTitlePlacehoder": "Игредиент №"
+  },
+  "amount": {
+    "value": "количество",
+    "unit": "ед. изм."
+  },
+  "validation": {
+    "required": "Необходимое поле",
+    "ingredientsNeed": "Необходимы ингредиенты"
   }
 }

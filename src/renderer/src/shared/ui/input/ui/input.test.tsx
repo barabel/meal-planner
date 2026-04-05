@@ -22,6 +22,21 @@ describe('Input', () => {
 
   it('рендерит как type="number" если передан type', () => {
     render(<Input type="number" />);
-    expect(document.querySelector('input[type="number"]')).toBeInTheDocument();
+    expect(screen.getByRole('spinbutton')).toBeInTheDocument();
+  });
+
+  it('отображает placeholder', () => {
+    render(<Input placeholder="введите текст" />);
+    expect(screen.getByPlaceholderText('введите текст')).toBeInTheDocument();
+  });
+
+  it('передаёт name на элемент', () => {
+    render(<Input name="ingredient" />);
+    expect(screen.getByRole('textbox')).toHaveAttribute('name', 'ingredient');
+  });
+
+  it('применяет className', () => {
+    render(<Input className="custom-class" />);
+    expect(screen.getByRole('textbox')).toHaveClass('custom-class');
   });
 });

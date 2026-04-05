@@ -12,6 +12,8 @@ npm run build:win    # build + electron-builder --win
 npm run typecheck    # tsc для node и web таргетов
 npm run lint         # проверка ESLint
 npm run lintFix      # ESLint с автоисправлением
+npm run test         # vitest (watch)
+npm run test:run     # vitest run (один проход)
 ```
 
 ## Архитектура
@@ -50,20 +52,46 @@ src/main/
 ```
 src/renderer/src/
   app/          # Точка входа, роутер, лэйауты
-  pages/        # Компоненты страниц (уровень роутов)
-  widgets/      # Составные UI-блоки (navbar, week)
-  entities/     # Бизнес-сущности (cards/day)
-  shared/       # Конфиг (роуты), переиспользуемый UI (кнопки)
+  pages/        # Компоненты страниц (main, recipe)
+  widgets/      # Составные UI-блоки (navbar, week, create-recipe)
+  features/     # Фичи (amount — ввод количества+единицы)
+  entities/     # Бизнес-сущности (cards/day, recipe — useRecipesStore)
+  shared/       # Конфиг (роуты), helpers/arrays, UI (button, input, input-wrapper, select), types/recipe
   assets/       # SCSS + Tailwind-тема
   locales/      # i18n JSON (пока только ru)
 ```
 
 Каждый слой экспортирует через barrel `index.tsx`.
 
+## Стек (актуально)
+
+- Electron 39, electron-vite 5, Vite 7
+- React 19, React Router 7, TypeScript 5.9
+- Tailwind CSS 4 (CSS-first), SCSS (sass-embedded)
+- Zustand 5 — стейт (features/amount, entities/recipe)
+- react-hook-form — формы (widgets/create-recipe)
+- i18next 26 + react-i18next, только `ru`
+- electron-conf 1.3 — персистентность
+- Vitest 4 + Testing Library — тесты
+- Husky 9 — pre-commit: `vitest run && lint && typecheck && build`
+
+## Домен: Recipe (реализован)
+
+IPC-цепочка полностью готова:
+`RecipeStoreRepository` (electron-conf) → `RecipeService` → `RecipeController` → preload → `window.api.recipes`
+
+- каналы: `recipes:getAll`, `recipes:add`, `recipes:remove`
+- Типы в `src/shared/types/recipe.ts` (shared между main и renderer):
+  - `IRecipe { id: string, title: string, ingredients: IRecipeIngredient[] }`
+  - `IRecipeIngredient { title: string, amount: string, unit: string }`
+  - `ICreateRecipeDto { title: string, ingredients: IRecipeIngredient[] }`
+- `entities/recipe` — Zustand-стор `useRecipesStore`: `fetchAll`, `addRecipe`, `removeRecipe`
+- Фронтенд (create-recipe) **подключён** к IPC через `useRecipesStore.addRecipe`; форма на `react-hook-form` + `useFieldArray`
+
 ## Контекст разработчика
 
 - Новичок в бэкенд-архитектуре; этот проект — pet project для её изучения (DDD, onion, репозитории, сервисы)
-- Долгосрочная цель: мигрировать с electron-store на web API и захостить как веб-приложение
+- Долгосрочная цель: мигрировать с electron-conf на web API и захостить как веб-приложение
 
 ### Ключевые соглашения
 

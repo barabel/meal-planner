@@ -1,3 +1,4 @@
+import { ICreateRecipeDto } from '@-electron/domain/recipe';
 import { RECIPES } from '@-electron/ipc-channels';
 import { RecipeService } from '@-electron/services/recipe';
 import { ipcMain, type IpcMainInvokeEvent } from 'electron';
@@ -21,8 +22,8 @@ export class RecipeController {
     return this.service.getAll();
   };
 
-  add = (_: IpcMainInvokeEvent, title: string) => {
-    return this.service.add(title);
+  add = (_: IpcMainInvokeEvent, dto: ICreateRecipeDto) => {
+    return this.service.add(dto);
   };
 
   remove = (_: IpcMainInvokeEvent, id: string) => {

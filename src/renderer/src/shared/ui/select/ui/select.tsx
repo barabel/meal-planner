@@ -14,7 +14,7 @@ export const Select: FCClass<TSelect> = ({
   return (
     <select
       className={cx(
-        'border-1 border-black-100',
+        'h-32 border-1 border-black-100',
         className,
       )}
       name={name}

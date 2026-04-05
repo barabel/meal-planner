@@ -1,13 +1,14 @@
 import { ElectronAPI } from '@electron-toolkit/preload';
+import { ICreateRecipeDto, IRecipe } from '@shared/types/recipe';
 
 declare global {
   interface Window {
     electron: ElectronAPI;
     api: {
       recipes: {
-        getAll: () => { id: string; title: string }[];
-        add: (title: string) => Promise<{ id: string; title: string }>;
-        remove: (id: string) => Promise<void>;
+        getAll: () => IRecipe[];
+        add: (dto: ICreateRecipeDto) => IRecipe;
+        remove: (id: string) => void;
       };
     };
   }

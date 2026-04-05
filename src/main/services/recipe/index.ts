@@ -1,4 +1,4 @@
-import type { IRecipe, IRecipeRepository } from '@-electron/domain/recipe';
+import type { ICreateRecipeDto, IRecipe, IRecipeRepository } from '@-electron/domain/recipe';
 
 export class RecipeService {
   private readonly repository: IRecipeRepository;
@@ -11,8 +11,8 @@ export class RecipeService {
     return this.repository.getAll();
   };
 
-  add = (title: string): IRecipe => {
-    return this.repository.add({ title });
+  add = (dto: ICreateRecipeDto): IRecipe => {
+    return this.repository.add(dto);
   };
 
   remove = (id: string): void => {
